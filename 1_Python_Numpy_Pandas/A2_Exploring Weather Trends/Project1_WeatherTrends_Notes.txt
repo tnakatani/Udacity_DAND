@@ -1,0 +1,16 @@
+Step 1: Extract the data from the database.
+
+  1) Get average temperatures for closest city (ºC).
+    a) Query all cities in United States since I live in United States
+      a) SELECT * FROM city_data WHERE country = 'United States'
+    b) I see that Columbus, Ohio is the closest city.  Choosing Columbus, I will query data from there in the city_data table.
+      a) SELECT * FROM city_data WHERE city = 'Columbus'
+    c) Download csv file
+
+  2) Get average temperatures from global data
+    1) SELECT * FROM global_data 
+    2) Download csv file
+
+Step 2: Open up CSV
+
+  1) Open up in Google Sheets
