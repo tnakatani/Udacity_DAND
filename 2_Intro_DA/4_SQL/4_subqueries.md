@@ -284,42 +284,44 @@ FROM (SELECT o.account_id, AVG(o.total_amt_usd) avg_amt
 Example: Find the average number of events for each channel per day.
 
 1. Using a subquery:
-```SQL
-SELECT channel, AVG(events) AS average_events
-FROM (SELECT DATE_TRUNC('day',occurred_at) AS day, channel, COUNT(*) as events
-         FROM web_events
-         GROUP BY 1,2) sub
-GROUP BY channel
-ORDER BY 2 DESC;
-```
+  ```SQL
+  SELECT channel, AVG(events) AS average_events
+  FROM (SELECT DATE_TRUNC('day',occurred_at) AS day, channel, COUNT(*) as events
+           FROM web_events
+           GROUP BY 1,2) sub
+  GROUP BY channel
+  ORDER BY 2 DESC;
+  ```
 
 2. Move the subquery into its own table using `WITH` with an `alias` named `events`. Reference it using another query.
-```SQL
-WITH events AS (SELECT DATE_TRUNC('day',occurred_at) AS day, channel, COUNT(*) as events
-                FROM web_events
-                GROUP BY 1,2)
 
-SELECT channel, AVG(events) AS average_events
-FROM events
-GROUP BY channel,
-ORDER BY 2 DESC
-```
+  ```SQL
+  WITH events AS (SELECT DATE_TRUNC('day',occurred_at) AS day, channel, COUNT(*) as events
+                  FROM web_events
+                  GROUP BY 1,2)
 
-More than one table can be created in a `WITH` statement.
-```SQL
-WITH table1 AS (
-          SELECT *
-          FROM web_events),
+  SELECT channel, AVG(events) AS average_events
+  FROM events
+  GROUP BY channel,
+  ORDER BY 2 DESC
+  ```
 
-     table2 AS (
-          SELECT *
-          FROM accounts)
+- More than one table can be created in a `WITH` statement.
 
-SELECT *
-FROM table1
-JOIN table2
-ON table1.account_id = table2.id;          
-```
+  ```SQL
+  WITH table1 AS (
+            SELECT *
+            FROM web_events),
+
+       table2 AS (
+            SELECT *
+            FROM accounts)
+
+  SELECT *
+  FROM table1
+  JOIN table2
+  ON table1.account_id = table2.id;          
+  ```
 
 ## Quiz
 
