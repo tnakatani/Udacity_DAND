@@ -29,6 +29,8 @@ Because we wanted to test if a new page was better than an existing page, we set
 
 #### **H<sub>1</sub>: μ<sub>1</sub> > μ<sub>2</sub>**
 
+(**μ<sub>1</sub>** represents population mean from new page, and **μ<sub>2</sub>** represents population mean from old page)
+
 Depending on your question of interest, you would change your null and alternative hypotheses to match.
 
 ## Types of Errors
@@ -77,13 +79,16 @@ In this video, you learned exactly how to calculate this value. The more extreme
 Therefore, you have the following cases:
 
 If your parameter is greater than some value in the alternative hypothesis, your shading would look like this to obtain your p-value:
-![alt text](/p_value1.png)
+
+![alt text](p_value1.png)
 
 If your parameter is less than some value in the alternative hypothesis, your shading would look like this to obtain your p-value:
-![alt text](/p_value2.png)
+
+![alt text](p_value2.png)
 
 If your parameter is not equal to some value in the alternative hypothesis, your shading would look like this to obtain your p-value:
-![alt text](/p_value3.png)
+
+![alt text](p_value3.png)
 
 You could integrate the sampling distribution to obtain the area for each of these p-values. Alternatively, you will be simulating to obtain these proportions in the next concepts.
 
@@ -129,7 +134,7 @@ Alternatively, machine learning techniques take an individual approach towards m
 
 In the final lessons of this class, you will learn about two of the most fundamental machine learning approaches used in practice: **linear** and **logistic** regression.
 
-## Other Things to Consider - Other Things to Consider - What if Test More Than Once?
+### Other Things to Consider - What if Test More Than Once?
 When performing more than one hypothesis test, your type I error compounds. In order to correct for this, a common technique is called the **Bonferroni correction**. This correction is **very conservative**, but says that your new type I error rate should be the error rate you actually want divided by the number of tests you are performing.
 
 Therefore, if you would like to hold a type I error rate of 1% for each of 20 hypothesis tests, the **Bonferroni** corrected rate would be 0.01/20 = 0.0005. This would be the new rate you should use as your comparison to the p-value for each of the 20 tests to make your decision.
@@ -140,7 +145,7 @@ Additional techniques to protect against compounding type I errors include:
 - [Tukey correction](http://www.itl.nist.gov/div898/handbook/prc/section4/prc471.htm)
 - [Q-values](http://www.nonlinear.com/support/progenesis/comet/faq/v2.0/pq-values.aspx)
 
-## Other Things to Consider - How Do Confidence Intervals and Hypothesis Testing Compare?
+### Other Things to Consider - How Do Confidence Intervals and Hypothesis Testing Compare?
 A two-sided hypothesis test (that is a test involving a **≠** in the alternative) is the same in terms of the conclusions made as a confidence interval as long as:
 
 #### 1 - Confidence Interval = α
