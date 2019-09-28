@@ -1,0 +1,2599 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{investigate-a-dataset-project}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Project: Investigate the FBI Gun
+Dataset}\label{project-investigate-the-fbi-gun-dataset}
+
+\subsection{Table of Contents}\label{table-of-contents}
+
+Introduction
+
+Data Wrangling
+
+Exploratory Data Analysis
+
+Conclusions
+
+     \#\# Introduction
+
+This report investigates a dataset which is derived from the FBI's
+National Instant Criminal Background Check System. The NICS is used to
+determine whether a prospective buyer is eligible to buy firearms or
+explosives. Gun shops call into this system to ensure that each customer
+does not have a criminal record or isn't otherwise ineligible to make a
+purchase. The data has been supplemented with state level data from
+census.gov.
+
+This report will use 2 datasets: 1. \textbf{NICS gun data}, which
+contains the number of firearm checks by month, state, and type. 2.
+\textbf{Census data}, which contains various demographic data by state.
+
+Based on the two datasets, we can look into analyzing how a certain
+factor could be influenced by different variables. Some questions to
+consider are:
+
+\paragraph{1. What census data is most associated with high gun per
+capita?}\label{what-census-data-is-most-associated-with-high-gun-per-capita}
+
+\paragraph{2. Which states have had the highest growth in gun
+registrations?}\label{which-states-have-had-the-highest-growth-in-gun-registrations}
+
+\paragraph{3. What is the overall trend of gun
+purchases?}\label{what-is-the-overall-trend-of-gun-purchases}
+
+     \#\# Data Wrangling
+
+\subsubsection{General Properties}\label{general-properties}
+
+First thing we will do is import both of the datasets, and give an
+initial review of their structure and data contained to get an
+understanding of how the data is laid out.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Import relevant libraries.}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{o}{\PYZpc{}} \PY{n}{matplotlib} \PY{n}{inline}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Import NICS gun data \PYZam{} US census data.}
+        \PY{c+c1}{\PYZsh{} We will name the NICS gun dataset \PYZsq{}df1\PYZsq{}.}
+        \PY{c+c1}{\PYZsh{} We will name the Census dataset \PYZsq{}df2\PYZsq{}.}
+        \PY{n}{df1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gun\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{us\PYZus{}census\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{NICS Dataset - Initial
+Look}\label{nics-dataset---initial-look}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} View the first few rows of data in df1}
+        \PY{n}{df1}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}       month                 state    permit  permit\_recheck  handgun  \textbackslash{}
+        0   2017-09               Alabama   16717.0             0.0   5734.0   
+        1   2017-09                Alaska     209.0             2.0   2320.0   
+        2   2017-09               Arizona    5069.0           382.0  11063.0   
+        3   2017-09              Arkansas    2935.0           632.0   4347.0   
+        4   2017-09            California   57839.0             0.0  37165.0   
+        5   2017-09              Colorado    4356.0             0.0  15751.0   
+        6   2017-09           Connecticut    4343.0           673.0   4834.0   
+        7   2017-09              Delaware     275.0             0.0   1414.0   
+        8   2017-09  District of Columbia       1.0             0.0     56.0   
+        9   2017-09               Florida   10784.0             0.0  39199.0   
+        10  2017-09               Georgia   12074.0             0.0  10933.0   
+        11  2017-09                  Guam       0.0             0.0     74.0   
+        12  2017-09                Hawaii     946.0             0.0      0.0   
+        13  2017-09                 Idaho    5162.0             0.0   3058.0   
+        14  2017-09              Illinois   15712.0         71432.0  18290.0   
+        15  2017-09               Indiana   18241.0             0.0  16093.0   
+        16  2017-09                  Iowa    5847.0          1217.0    151.0   
+        17  2017-09                Kansas    1567.0             3.0   4518.0   
+        18  2017-09              Kentucky  378384.0             0.0   8112.0   
+        19  2017-09             Louisiana    1827.0             0.0  10495.0   
+        
+            long\_gun   other  multiple  admin  prepawn\_handgun   {\ldots}    \textbackslash{}
+        0     6320.0   221.0       317    0.0             15.0   {\ldots}     
+        1     2930.0   219.0       160    0.0              5.0   {\ldots}     
+        2     7946.0   920.0       631    0.0             13.0   {\ldots}     
+        3     6063.0   165.0       366   51.0             12.0   {\ldots}     
+        4    24581.0  2984.0         0    0.0              0.0   {\ldots}     
+        5    13448.0  1007.0      1062    0.0              0.0   {\ldots}     
+        6     1993.0   274.0         0    0.0              0.0   {\ldots}     
+        7     1538.0    66.0        68    0.0              0.0   {\ldots}     
+        8        4.0     0.0         0    0.0              0.0   {\ldots}     
+        9    17949.0  2319.0      1721    1.0             18.0   {\ldots}     
+        10    7982.0   315.0       494    0.0             20.0   {\ldots}     
+        11      47.0    10.0         3    0.0              0.0   {\ldots}     
+        12       0.0     0.0         0    0.0              0.0   {\ldots}     
+        13    5241.0   187.0       205    0.0              0.0   {\ldots}     
+        14   10201.0     0.0       814    0.0              0.0   {\ldots}     
+        15   11332.0  1123.0       597   79.0              5.0   {\ldots}     
+        16    2640.0    27.0         1    1.0              0.0   {\ldots}     
+        17    5025.0   306.0       297    0.0              3.0   {\ldots}     
+        18    7543.0   253.0       543    1.0             16.0   {\ldots}     
+        19   11573.0   635.0       776    0.0              6.0   {\ldots}     
+        
+            returned\_other  rentals\_handgun  rentals\_long\_gun  private\_sale\_handgun  \textbackslash{}
+        0              0.0              0.0               0.0                   9.0   
+        1              0.0              0.0               0.0                  17.0   
+        2              0.0              0.0               0.0                  38.0   
+        3              0.0              0.0               0.0                  13.0   
+        4              0.0              0.0               0.0                   0.0   
+        5              1.0              0.0               0.0                   0.0   
+        6              0.0              0.0               0.0                   0.0   
+        7              0.0              0.0               0.0                  55.0   
+        8              0.0              0.0               0.0                   0.0   
+        9              0.0              0.0               0.0                  11.0   
+        10             0.0              0.0               0.0                  17.0   
+        11             0.0              0.0               0.0                   0.0   
+        12             0.0              0.0               0.0                   0.0   
+        13             1.0              0.0               0.0                   7.0   
+        14             0.0              0.0               0.0                   0.0   
+        15             0.0              0.0               0.0                  75.0   
+        16             0.0              0.0               0.0                   1.0   
+        17             0.0              0.0               0.0                  16.0   
+        18             0.0              0.0               0.0                  21.0   
+        19             0.0              0.0               0.0                  28.0   
+        
+            private\_sale\_long\_gun  private\_sale\_other  return\_to\_seller\_handgun  \textbackslash{}
+        0                    16.0                 3.0                       0.0   
+        1                    24.0                 1.0                       0.0   
+        2                    12.0                 2.0                       0.0   
+        3                    23.0                 0.0                       0.0   
+        4                     0.0                 0.0                       0.0   
+        5                     0.0                 0.0                       0.0   
+        6                     0.0                 0.0                       0.0   
+        7                    34.0                 3.0                       1.0   
+        8                     0.0                 0.0                       0.0   
+        9                     9.0                 0.0                       0.0   
+        10                    7.0                 0.0                       0.0   
+        11                    0.0                 0.0                       0.0   
+        12                    0.0                 0.0                       0.0   
+        13                   14.0                 1.0                       3.0   
+        14                    0.0                 0.0                       0.0   
+        15                   57.0                 6.0                       4.0   
+        16                    7.0                 0.0                       0.0   
+        17                   12.0                 0.0                       0.0   
+        18                   19.0                 1.0                       2.0   
+        19                   43.0                 3.0                       2.0   
+        
+            return\_to\_seller\_long\_gun  return\_to\_seller\_other  totals  
+        0                         0.0                     3.0   32019  
+        1                         0.0                     0.0    6303  
+        2                         0.0                     0.0   28394  
+        3                         2.0                     1.0   17747  
+        4                         0.0                     0.0  123506  
+        5                         0.0                     0.0   35873  
+        6                         0.0                     0.0   12117  
+        7                         2.0                     0.0    3502  
+        8                         0.0                     0.0      61  
+        9                         1.0                     0.0   77390  
+        10                        0.0                     0.0   35371  
+        11                        0.0                     0.0     135  
+        12                        0.0                     0.0     948  
+        13                        0.0                     0.0   14938  
+        14                        0.0                     0.0  116449  
+        15                        4.0                     0.0   48524  
+        16                        0.0                     0.0    9975  
+        17                        1.0                     0.0   12856  
+        18                        1.0                     0.0  398706  
+        19                        2.0                     0.0   27821  
+        
+        [20 rows x 27 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} View the dimension of df1}
+        \PY{n}{df1}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} (12485, 27)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} View the non\PYZhy{}null values in each column}
+        \PY{n}{df1}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 12485 entries, 0 to 12484
+Data columns (total 27 columns):
+month                        12485 non-null object
+state                        12485 non-null object
+permit                       12461 non-null float64
+permit\_recheck               1100 non-null float64
+handgun                      12465 non-null float64
+long\_gun                     12466 non-null float64
+other                        5500 non-null float64
+multiple                     12485 non-null int64
+admin                        12462 non-null float64
+prepawn\_handgun              10542 non-null float64
+prepawn\_long\_gun             10540 non-null float64
+prepawn\_other                5115 non-null float64
+redemption\_handgun           10545 non-null float64
+redemption\_long\_gun          10544 non-null float64
+redemption\_other             5115 non-null float64
+returned\_handgun             2200 non-null float64
+returned\_long\_gun            2145 non-null float64
+returned\_other               1815 non-null float64
+rentals\_handgun              990 non-null float64
+rentals\_long\_gun             825 non-null float64
+private\_sale\_handgun         2750 non-null float64
+private\_sale\_long\_gun        2750 non-null float64
+private\_sale\_other           2750 non-null float64
+return\_to\_seller\_handgun     2475 non-null float64
+return\_to\_seller\_long\_gun    2750 non-null float64
+return\_to\_seller\_other       2255 non-null float64
+totals                       12485 non-null int64
+dtypes: float64(23), int64(2), object(2)
+memory usage: 2.6+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} View total number of duplicated rows}
+        \PY{n}{df1}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} 0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} View total number of null values per column}
+        \PY{n}{df1}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} month                            0
+        state                            0
+        permit                          24
+        permit\_recheck               11385
+        handgun                         20
+        long\_gun                        19
+        other                         6985
+        multiple                         0
+        admin                           23
+        prepawn\_handgun               1943
+        prepawn\_long\_gun              1945
+        prepawn\_other                 7370
+        redemption\_handgun            1940
+        redemption\_long\_gun           1941
+        redemption\_other              7370
+        returned\_handgun             10285
+        returned\_long\_gun            10340
+        returned\_other               10670
+        rentals\_handgun              11495
+        rentals\_long\_gun             11660
+        private\_sale\_handgun          9735
+        private\_sale\_long\_gun         9735
+        private\_sale\_other            9735
+        return\_to\_seller\_handgun     10010
+        return\_to\_seller\_long\_gun     9735
+        return\_to\_seller\_other       10230
+        totals                           0
+        dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} View the datatypes of columns in df1}
+        \PY{n}{df1}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} month                         object
+        state                         object
+        permit                       float64
+        permit\_recheck               float64
+        handgun                      float64
+        long\_gun                     float64
+        other                        float64
+        multiple                       int64
+        admin                        float64
+        prepawn\_handgun              float64
+        prepawn\_long\_gun             float64
+        prepawn\_other                float64
+        redemption\_handgun           float64
+        redemption\_long\_gun          float64
+        redemption\_other             float64
+        returned\_handgun             float64
+        returned\_long\_gun            float64
+        returned\_other               float64
+        rentals\_handgun              float64
+        rentals\_long\_gun             float64
+        private\_sale\_handgun         float64
+        private\_sale\_long\_gun        float64
+        private\_sale\_other           float64
+        return\_to\_seller\_handgun     float64
+        return\_to\_seller\_long\_gun    float64
+        return\_to\_seller\_other       float64
+        totals                         int64
+        dtype: object
+\end{Verbatim}
+            
+    \subsubsection{Initial Thoughts on the NICS
+Dataset}\label{initial-thoughts-on-the-nics-dataset}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  There are quite a lot of columns in this dataset and not all are
+  relevant to the question posed above. I believe the main columns that
+  are relevant are the following:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{month}
+\item
+  \texttt{state}
+\item
+  \texttt{permit}
+\item
+  \texttt{handgun}: Guns that are generally designed to be held by one
+  hand.
+\item
+  \texttt{long\_gun}: Guns that are generally designed to be held by
+  both hands and braced against the shoulder.
+\item
+  \texttt{other}: Refers to frames, receivers and other firearms that
+  are not either handguns or long guns (rifles or shotguns), such as
+  firearms having a pistol grip that expel a shotgun shell
+\item
+  \texttt{multiple}: Multiple types of firearms
+\item
+  \texttt{totals}: Total number of background checks
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  The 'month' column is a string, we'll want to convert that to a
+  datetime data type.
+\item
+  There are a number of null values in the dataset that will need to be
+  cleaned up.
+\end{enumerate}
+
+    \subsubsection{Census Data - Initial
+Look}\label{census-data---initial-look}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} View the first few rows of data in df2}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}                                                 Fact Fact Note    Alabama  \textbackslash{}
+         0       Population estimates, July 1, 2016,  (V2016)       NaN  4,863,300   
+         1  Population estimates base, April 1, 2010,  (V2{\ldots}       NaN  4,780,131   
+         2  Population, percent change - April 1, 2010 (es{\ldots}       NaN      1.70\%   
+         3                  Population, Census, April 1, 2010       NaN  4,779,736   
+         4  Persons under 5 years, percent, July 1, 2016, {\ldots}       NaN      6.00\%   
+         
+             Alaska    Arizona   Arkansas  California   Colorado Connecticut Delaware  \textbackslash{}
+         0  741,894  6,931,071  2,988,248  39,250,017  5,540,545   3,576,452  952,065   
+         1  710,249  6,392,301  2,916,025  37,254,522  5,029,324   3,574,114  897,936   
+         2    4.50\%      8.40\%      2.50\%       5.40\%     10.20\%       0.10\%    6.00\%   
+         3  710,231  6,392,017  2,915,918  37,253,956  5,029,196   3,574,097  897,934   
+         4    7.30\%      6.30\%      6.40\%       6.30\%      6.10\%       5.20\%    5.80\%   
+         
+             {\ldots}    South Dakota Tennessee       Texas       Utah  Vermont   Virginia  \textbackslash{}
+         0   {\ldots}          865454   6651194  27,862,596  3,051,217  624,594  8,411,808   
+         1   {\ldots}          814195   6346298  25,146,100  2,763,888  625,741  8,001,041   
+         2   {\ldots}           0.063     0.048      10.80\%     10.40\%   -0.20\%      5.10\%   
+         3   {\ldots}          814180   6346105  25,145,561  2,763,885  625,741  8,001,024   
+         4   {\ldots}           0.071     0.061       7.20\%      8.30\%    4.90\%      6.10\%   
+         
+           Washington West Virginia  Wisconsin  Wyoming  
+         0  7,288,000     1,831,102  5,778,708  585,501  
+         1  6,724,545     1,853,011  5,687,289  563,767  
+         2      8.40\%        -1.20\%      1.60\%    3.90\%  
+         3  6,724,540     1,852,994  5,686,986  563,626  
+         4      6.20\%         5.50\%      5.80\%    6.50\%  
+         
+         [5 rows x 52 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} View the dimension of df2}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} (85, 52)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} View the number of non\PYZhy{}null values in each column}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 85 entries, 0 to 84
+Data columns (total 52 columns):
+Fact              80 non-null object
+Fact Note         28 non-null object
+Alabama           65 non-null object
+Alaska            65 non-null object
+Arizona           65 non-null object
+Arkansas          65 non-null object
+California        65 non-null object
+Colorado          65 non-null object
+Connecticut       65 non-null object
+Delaware          65 non-null object
+Florida           65 non-null object
+Georgia           65 non-null object
+Hawaii            65 non-null object
+Idaho             65 non-null object
+Illinois          65 non-null object
+Indiana           65 non-null object
+Iowa              65 non-null object
+Kansas            65 non-null object
+Kentucky          65 non-null object
+Louisiana         65 non-null object
+Maine             65 non-null object
+Maryland          65 non-null object
+Massachusetts     65 non-null object
+Michigan          65 non-null object
+Minnesota         65 non-null object
+Mississippi       65 non-null object
+Missouri          65 non-null object
+Montana           65 non-null object
+Nebraska          65 non-null object
+Nevada            65 non-null object
+New Hampshire     65 non-null object
+New Jersey        65 non-null object
+New Mexico        65 non-null object
+New York          65 non-null object
+North Carolina    65 non-null object
+North Dakota      65 non-null object
+Ohio              65 non-null object
+Oklahoma          65 non-null object
+Oregon            65 non-null object
+Pennsylvania      65 non-null object
+Rhode Island      65 non-null object
+South Carolina    65 non-null object
+South Dakota      65 non-null object
+Tennessee         65 non-null object
+Texas             65 non-null object
+Utah              65 non-null object
+Vermont           65 non-null object
+Virginia          65 non-null object
+Washington        65 non-null object
+West Virginia     65 non-null object
+Wisconsin         65 non-null object
+Wyoming           65 non-null object
+dtypes: object(52)
+memory usage: 34.6+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} View the dataypes of columns in df2}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} Fact              object
+         Fact Note         object
+         Alabama           object
+         Alaska            object
+         Arizona           object
+         Arkansas          object
+         California        object
+         Colorado          object
+         Connecticut       object
+         Delaware          object
+         Florida           object
+         Georgia           object
+         Hawaii            object
+         Idaho             object
+         Illinois          object
+         Indiana           object
+         Iowa              object
+         Kansas            object
+         Kentucky          object
+         Louisiana         object
+         Maine             object
+         Maryland          object
+         Massachusetts     object
+         Michigan          object
+         Minnesota         object
+         Mississippi       object
+         Missouri          object
+         Montana           object
+         Nebraska          object
+         Nevada            object
+         New Hampshire     object
+         New Jersey        object
+         New Mexico        object
+         New York          object
+         North Carolina    object
+         North Dakota      object
+         Ohio              object
+         Oklahoma          object
+         Oregon            object
+         Pennsylvania      object
+         Rhode Island      object
+         South Carolina    object
+         South Dakota      object
+         Tennessee         object
+         Texas             object
+         Utah              object
+         Vermont           object
+         Virginia          object
+         Washington        object
+         West Virginia     object
+         Wisconsin         object
+         Wyoming           object
+         dtype: object
+\end{Verbatim}
+            
+    \subsubsection{Initial Thoughts on the Census
+Dataset}\label{initial-thoughts-on-the-census-dataset}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  One issue that is immediately visible in the census data is that the
+  \textbf{name of states are the header for each column, whereas in the
+  NICS dataset they are grouped under the 'State' column}. The census
+  dataframe will require some reorganizing to match the structure of the
+  NICS dataframe.
+\item
+  There is a lot of data in this dataset. We will need to trim down the
+  table to a smaller dataset that will be easier to manage and relevant
+  to our interests for this report.
+\item
+  A lot of the datatype need to be converted. Most of the cells are
+  numbers, but their datatype are strings. We'll need to convert these
+  into numeric datatypes.
+\item
+  We'll need to figure out how to compare the data between this dataset
+  and the FBI data in terms of time. The FBI dataset lists data of each
+  state per YYYY-MM, whereas data in the Census dataset is listing sum
+  of specific years (e.g. "Population estimates, July 1, 2016, (V2016)")
+  or multiple years (e.g. "Median household income (in 2015 dollars),
+  2011-2015").
+\end{enumerate}
+
+    \subsubsection{Data Cleaning - NCIS
+Data}\label{data-cleaning---ncis-data}
+
+    \paragraph{Step 1: Dropping Irrelevant
+Columns}\label{step-1-dropping-irrelevant-columns}
+
+We will first trim down the columns to those that we will want to focus
+on for this project. As stated above, we will keep the columns
+\texttt{month}, \texttt{state}, \texttt{permit}, \texttt{handgun},
+\texttt{long\_gun}, \texttt{other}, \texttt{multiple} and
+\texttt{totals}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Remove irrelevant columns from dataset.}
+         \PY{n}{df1}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{permit\PYZus{}recheck}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{admin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prepawn\PYZus{}handgun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prepawn\PYZus{}long\PYZus{}gun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prepawn\PYZus{}other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{redemption\PYZus{}handgun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{redemption\PYZus{}long\PYZus{}gun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{redemption\PYZus{}other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{returned\PYZus{}handgun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{returned\PYZus{}long\PYZus{}gun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{returned\PYZus{}other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rentals\PYZus{}handgun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rentals\PYZus{}long\PYZus{}gun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{private\PYZus{}sale\PYZus{}handgun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{private\PYZus{}sale\PYZus{}long\PYZus{}gun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{private\PYZus{}sale\PYZus{}other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{return\PYZus{}to\PYZus{}seller\PYZus{}handgun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{return\PYZus{}to\PYZus{}seller\PYZus{}long\PYZus{}gun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{return\PYZus{}to\PYZus{}seller\PYZus{}other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{df1}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}      month       state   permit  handgun  long\_gun   other  multiple  totals
+         0  2017-09     Alabama  16717.0   5734.0    6320.0   221.0       317   32019
+         1  2017-09      Alaska    209.0   2320.0    2930.0   219.0       160    6303
+         2  2017-09     Arizona   5069.0  11063.0    7946.0   920.0       631   28394
+         3  2017-09    Arkansas   2935.0   4347.0    6063.0   165.0       366   17747
+         4  2017-09  California  57839.0  37165.0   24581.0  2984.0         0  123506
+\end{Verbatim}
+            
+    \paragraph{Step 2. Clean Up Datatypes}\label{step-2.-clean-up-datatypes}
+
+I noticed that the \texttt{month} column is a string object. We will
+convert that to a datetime object so we can easily manipulate it later
+on.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Convert month column to a datetime datatype.}
+         \PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df1}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} month       datetime64[ns]
+         state               object
+         permit             float64
+         handgun            float64
+         long\_gun           float64
+         other              float64
+         multiple             int64
+         totals               int64
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{df1}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}        month    state   permit  handgun  long\_gun  other  multiple  totals
+         0 2017-09-01  Alabama  16717.0   5734.0    6320.0  221.0       317   32019
+\end{Verbatim}
+            
+    \paragraph{Step 3. Match State Data in NCIS Dataset to Census
+Dataset}\label{step-3.-match-state-data-in-ncis-dataset-to-census-dataset}
+
+During the initial review of each dataset, I noticed that the NCIS
+dataset has more states than the Census dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Check number of unique states to compare with Census dataframe}
+         \PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} array(['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+                'Colorado', 'Connecticut', 'Delaware', 'District of Columbia',
+                'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois',
+                'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
+                'Mariana Islands', 'Maryland', 'Massachusetts', 'Michigan',
+                'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska',
+                'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York',
+                'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon',
+                'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina',
+                'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+                'Virgin Islands', 'Virginia', 'Washington', 'West Virginia',
+                'Wisconsin', 'Wyoming'], dtype=object)
+\end{Verbatim}
+            
+    The \texttt{state} column in FBI dataset has 5 more states than in
+\texttt{state} column in the Census dataset. We will drop the states
+that doesn't exist in the Census dataset since they will not be able to
+be analyzed. The following are the states that do not exist in the
+Census dataset: - District of Columbia, - Guam, - Mariana Islands, -
+Puerto Rico, - Virgin Islands
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} Select rows which contains data from the extraneous states.}
+         \PY{n}{extra\PYZus{}states} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District of Columbia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Guam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mariana Islands}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Puerto Rico}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Virgin Islands}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{extra\PYZus{}state\PYZus{}dfs} \PY{o}{=} \PY{n}{df1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{extra\PYZus{}states}\PY{p}{)}\PY{p}{]}
+         \PY{n}{extra\PYZus{}state\PYZus{}dfs}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}         month                 state  permit  handgun  long\_gun  other  \textbackslash{}
+         8  2017-09-01  District of Columbia     1.0     56.0       4.0    0.0   
+         11 2017-09-01                  Guam     0.0     74.0      47.0   10.0   
+         21 2017-09-01       Mariana Islands     0.0     12.0       3.0    0.0   
+         41 2017-09-01           Puerto Rico     0.0    619.0     123.0   17.0   
+         49 2017-09-01        Virgin Islands     1.0      6.0       2.0    0.0   
+         
+             multiple  totals  
+         8          0      61  
+         11         3     135  
+         21         1      16  
+         41        22     791  
+         49         0       9  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} Drop rows where the state is one of the extra\PYZus{}states series.}
+         \PY{n}{df1}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df1}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{extra\PYZus{}states}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} array(['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+                'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia',
+                'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas',
+                'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts',
+                'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
+                'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
+                'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma',
+                'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
+                'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+                'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'],
+               dtype=object)
+\end{Verbatim}
+            
+    \paragraph{Step 4. Preparing Date Format to Match Census
+Dataset}\label{step-4.-preparing-date-format-to-match-census-dataset}
+
+Another issue I observed is that the Census dataset is listing its data
+on an annual level, whereas the NCIS dataset is listing data by month.
+In order to be able to compare the two datasets, I've decided to group
+the NCIS dataset into groups of years to better match the Census
+dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Convert each month data to year, as we are mainly interested in annual data.}
+         \PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DatetimeIndex}\PY{p}{(}\PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}period}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} Rename \PYZsq{}month\PYZsq{} column to years, as we are now only seeing year data}
+         \PY{n}{df1}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n+nb}{str}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{month}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} Sum each month (that has already been converted to years) to get annual sums for each state.}
+         \PY{n}{df1\PYZus{}by\PYZus{}year} \PY{o}{=} \PY{n}{df1}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df1\PYZus{}by\PYZus{}year}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}                        permit   handgun  long\_gun    other  multiple   totals
+         year state                                                                   
+         1998 Alabama              0.0   10567.0   25723.0      0.0       278    36568
+              Alaska               4.0    1365.0    2555.0      0.0        61     3985
+              Arizona           1733.0    7157.0    8275.0      0.0       278    17453
+              Arkansas             0.0    4649.0   16914.0      0.0       189    21752
+              California        5366.0   28641.0   33438.0      0.0         0    67445
+              Colorado             0.0    7925.0   15233.0      0.0       560    23798
+              Connecticut       2817.0    1521.0    2486.0      0.0         6     6870
+              Delaware             0.0     507.0    1618.0      0.0        10     2135
+              Florida              0.0   11507.0   19283.0      0.0       347    32341
+              Georgia            473.0    1288.0    1665.0      0.0        31     3819
+              Hawaii             401.0       1.0      29.0      0.0         0      431
+              Idaho                0.0    1873.0    5033.0      0.0        91     7339
+              Illinois         24026.0    6207.0   11050.0      0.0       194    41477
+              Indiana              0.0    5357.0   17143.0      0.0        18    22518
+              Iowa              7835.0      66.0    6738.0      0.0         7    14650
+              Kansas               0.0    3225.0    9011.0      0.0       150    12386
+              Kentucky             0.0   11243.0   20206.0      0.0       420    31869
+              Louisiana            0.0    7572.0   19860.0      0.0       210    27642
+              Maine                0.0    1210.0    2848.0      0.0        48     4106
+              Maryland          1638.0     953.0    6405.0      0.0        11     9007
+              Massachusetts        0.0     321.0    1116.0      0.0         6     1443
+              Michigan         10086.0     127.0   20373.0      0.0        10    30596
+              Minnesota         1999.0    1105.0    8967.0      0.0        45    12116
+              Mississippi          0.0    7124.0   18771.0      0.0       202    26097
+              Missouri             0.0    4212.0   19753.0      0.0       122    24087
+              Montana              0.0    1795.0    4525.0      0.0        86     6406
+              Nebraska          1925.0      91.0    4633.0      0.0         6     6655
+              Nevada               0.0    2926.0    3362.0      0.0       151     6439
+              New Hampshire        0.0     112.0    2318.0      0.0        12     2442
+              New Jersey           0.0    1150.0    2618.0      0.0        17     3795
+         {\ldots}                       {\ldots}       {\ldots}       {\ldots}      {\ldots}       {\ldots}      {\ldots}
+         2017 Massachusetts    73409.0   50371.0   24188.0   3584.0      1449   154161
+              Michigan        174487.0  103715.0   80494.0   4219.0      1947   369053
+              Minnesota       346901.0   78202.0   88846.0   5998.0      3198   529302
+              Mississippi      16293.0   73897.0   48224.0   2415.0      3585   169056
+              Missouri          7863.0  183064.0  123928.0  10977.0      9285   362047
+              Montana          13773.0   24541.0   34576.0   1547.0      1952    88179
+              Nebraska         33172.0    1138.0   14619.0    166.0        38    50519
+              Nevada           20903.0   41577.0   22406.0   2304.0      2276    93734
+              New Hampshire    20097.0   46612.0   25961.0   1393.0        37    95057
+              New Jersey           0.0   47381.0   28015.0   1717.0         0    77113
+              New Mexico       10389.0   49729.0   35230.0   3745.0      2750   111491
+              New York         26316.0   96405.0  122593.0   9192.0      1650   276227
+              North Carolina  228436.0   12055.0   99717.0   6223.0      2092   385554
+              North Dakota      9729.0   14383.0   20292.0    895.0       639    47906
+              Ohio            109493.0  244699.0  139129.0  14060.0     10319   540654
+              Oklahoma             0.0  102785.0   77253.0   8495.0      7684   228878
+              Oregon           25367.0  122185.0   92090.0      0.0        17   240741
+              Pennsylvania    233862.0  409604.0  111462.0    912.0         0   763378
+              Rhode Island         0.0    9771.0    5823.0    686.0      1571    18132
+              South Carolina  123675.0   88705.0   49018.0   4783.0      7099   295532
+              South Dakota     11355.0   22809.0   27809.0   2271.0      1327    68914
+              Tennessee       206455.0  212421.0  119129.0  11140.0         0   549639
+              Texas           228878.0  405030.0  285530.0  26428.0     22660  1074971
+              Utah            128339.0   30423.0   30318.0   2031.0         0   199279
+              Vermont              0.0   13322.0   12227.0    852.0       639    27148
+              Virginia          9107.0  214436.0  133773.0   9570.0         0   366994
+              Washington      119467.0  144349.0   94619.0  16022.0      5695   419522
+              West Virginia    19079.0   56601.0   46918.0   2313.0      3605   152784
+              Wisconsin       137868.0  129794.0  108022.0   6782.0       401   387537
+              Wyoming           3447.0   13906.0   15122.0    887.0       831    37736
+         
+         [1000 rows x 6 columns]
+\end{Verbatim}
+            
+    At this point, we have a dataset that is grouped by years and month.
+From this dataset, we can now extract relevant years into a separate
+dataset which can then be joined with the Census data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} Get tables of specific years}
+         \PY{n}{df\PYZus{}2011} \PY{o}{=} \PY{n}{df1\PYZus{}by\PYZus{}year}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2011}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}2011}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}                         permit   handgun  long\_gun    other  multiple   totals
+         year state                                                                    
+         2011 Alabama            5036.0  130490.0  146290.0   2121.0      6262   336102
+              Alaska                0.0   28291.0   34607.0    955.0      1678    70198
+              Arizona           32906.0  108245.0   81285.0   3111.0      4700   251477
+              Arkansas          30087.0   54659.0   78806.0    768.0      3672   206228
+              California       278625.0  303169.0  320988.0    186.0         0   905701
+              Colorado           1280.0  148975.0  146166.0      0.0     39875   336296
+              Connecticut       93587.0   49793.0   41435.0   1145.0         0   186068
+              Delaware              0.0   11126.0   10672.0    266.0       417    22490
+              Florida              10.0  379889.0  212419.0      0.0     19204   643229
+              Georgia           90278.0  116794.0  112097.0   1567.0      5137   367894
+              Hawaii            12626.0       0.0       0.0      0.0         0    12635
+              Idaho             16284.0   27967.0   47957.0    687.0      1652   106616
+              Illinois         553984.0  134178.0  133935.0      0.0      6865   828962
+              Indiana           78242.0  136250.0  130012.0   3860.0      4715   359840
+              Iowa             135236.0     995.0   41838.0    189.0        53   179944
+              Kansas            13549.0   60955.0   74165.0   1769.0      3709   164898
+              Kentucky        2019543.0   92936.0  111518.0   1358.0      6362  2280832
+              Louisiana             0.0  101519.0  130125.0   2020.0      4751   264552
+              Maine                 0.0   27040.0   40838.0    663.0      1464    73127
+              Maryland            290.0   45851.0   53678.0    318.0       165   103020
+              Massachusetts     83795.0   42506.0   24802.0   1128.0      1237   153487
+              Michigan         201143.0   15224.0  134412.0   1361.0       381   356635
+              Minnesota        124260.0   72073.0  127369.0   2157.0      2776   337534
+              Mississippi        4875.0   56615.0   86909.0   1087.0      3228   185059
+              Missouri          27697.0  167789.0  160145.0   3846.0      7351   394923
+              Montana            7801.0   29416.0   50377.0    503.0      2508   108974
+              Nebraska          32299.0    1225.0   30806.0    137.0        51    65860
+              Nevada            14285.0   53246.0   42142.0    113.0      3464   118740
+              New Hampshire     25986.0   33604.0   30808.0    224.0       110    90984
+              New Jersey            0.0   31163.0   28005.0    231.0       849    60256
+              New Mexico         6413.0   46708.0   45187.0   1240.0      2520   115620
+              New York          37459.0   65774.0  163547.0   3711.0      1032   271837
+              North Carolina   167568.0    3703.0  148662.0   2616.0      2043   375211
+              North Dakota       5801.0   15144.0   36835.0    275.0       721    61032
+              Ohio                  3.0  243338.0  186301.0   5490.0      9949   468974
+              Oklahoma              1.0  109524.0  109833.0   3327.0      7750   271816
+              Oregon              578.0   95413.0  106685.0      0.0      7103   209781
+              Pennsylvania       3209.0      94.0  714553.0      3.0      1072   718934
+              Rhode Island          0.0    8689.0    7241.0    200.0      1141    17271
+              South Carolina    52126.0   81206.0   70232.0   1449.0      2748   229419
+              South Dakota          0.0   20186.0   43602.0    430.0      1291    69654
+              Tennessee         96198.0  188776.0  158193.0      0.0      7940   451107
+              Texas            161077.0  413943.0  423486.0  10474.0     21885  1155387
+              Utah             939767.0   32105.0   46702.0      6.0      2134  1020789
+              Vermont               0.0   11276.0   15381.0    216.0       419    27292
+              Virginia              0.0  175556.0  149404.0     84.0      6424   331468
+              Washington       101640.0  137157.0  116763.0   5362.0      5038   394410
+              West Virginia      1163.0   60210.0   82189.0   1086.0      4250   185491
+              Wisconsin         83719.0  101839.0  130883.0   1958.0       237   322761
+              Wyoming            3992.0   18586.0   23558.0    362.0      1020    52224
+\end{Verbatim}
+            
+    \subsubsection{Data Cleaning - Census
+Data}\label{data-cleaning---census-data}
+
+\paragraph{Step 1. Transposing Column to Match NCIS
+Data}\label{step-1.-transposing-column-to-match-ncis-data}
+
+The Census dataset is listing the months in the columns, wheras the NCIS
+dataset is listing them in a column. We will need to transpose the
+Census dataset to match the format of the NCIS dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Flip the row and column data using transpose()}
+         \PY{n}{df2} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:}                                                      0   \textbackslash{}
+         Fact       Population estimates, July 1, 2016,  (V2016)   
+         Fact Note                                           NaN   
+         Alabama                                       4,863,300   
+         Alaska                                          741,894   
+         Arizona                                       6,931,071   
+         
+                                                                   1   \textbackslash{}
+         Fact       Population estimates base, April 1, 2010,  (V2{\ldots}   
+         Fact Note                                                NaN   
+         Alabama                                            4,780,131   
+         Alaska                                               710,249   
+         Arizona                                            6,392,301   
+         
+                                                                   2   \textbackslash{}
+         Fact       Population, percent change - April 1, 2010 (es{\ldots}   
+         Fact Note                                                NaN   
+         Alabama                                                1.70\%   
+         Alaska                                                 4.50\%   
+         Arizona                                                8.40\%   
+         
+                                                   3   \textbackslash{}
+         Fact       Population, Census, April 1, 2010   
+         Fact Note                                NaN   
+         Alabama                            4,779,736   
+         Alaska                               710,231   
+         Arizona                            6,392,017   
+         
+                                                                   4   \textbackslash{}
+         Fact       Persons under 5 years, percent, July 1, 2016, {\ldots}   
+         Fact Note                                                NaN   
+         Alabama                                                6.00\%   
+         Alaska                                                 7.30\%   
+         Arizona                                                6.30\%   
+         
+                                                               5   \textbackslash{}
+         Fact       Persons under 5 years, percent, April 1, 2010   
+         Fact Note                                            NaN   
+         Alabama                                            6.40\%   
+         Alaska                                             7.60\%   
+         Arizona                                            7.10\%   
+         
+                                                                   6   \textbackslash{}
+         Fact       Persons under 18 years, percent, July 1, 2016,{\ldots}   
+         Fact Note                                                NaN   
+         Alabama                                               22.60\%   
+         Alaska                                                25.20\%   
+         Arizona                                               23.50\%   
+         
+                                                                7   \textbackslash{}
+         Fact       Persons under 18 years, percent, April 1, 2010   
+         Fact Note                                             NaN   
+         Alabama                                            23.70\%   
+         Alaska                                             26.40\%   
+         Arizona                                            25.50\%   
+         
+                                                                   8   \textbackslash{}
+         Fact       Persons 65 years and over, percent,  July 1, 2{\ldots}   
+         Fact Note                                                NaN   
+         Alabama                                               16.10\%   
+         Alaska                                                10.40\%   
+         Arizona                                               16.90\%   
+         
+                                                                   9   \textbackslash{}
+         Fact       Persons 65 years and over, percent, April 1, 2010   
+         Fact Note                                                NaN   
+         Alabama                                               13.80\%   
+         Alaska                                                 7.70\%   
+         Arizona                                               13.80\%   
+         
+                                          {\ldots}                           75  \textbackslash{}
+         Fact                             {\ldots}                          NaN   
+         Fact Note                        {\ldots}                          NaN   
+         Alabama                          {\ldots}                          NaN   
+         Alaska                           {\ldots}                          NaN   
+         Arizona                          {\ldots}                          NaN   
+         
+                             76                                                 77  \textbackslash{}
+         Fact       Value Flags                                                  -   
+         Fact Note          NaN  Either no or too few sample observations were {\ldots}   
+         Alabama            NaN                                                NaN   
+         Alaska             NaN                                                NaN   
+         Arizona            NaN                                                NaN   
+         
+                                                                   78  \textbackslash{}
+         Fact                                                       D   
+         Fact Note  Suppressed to avoid disclosure of confidential{\ldots}   
+         Alabama                                                  NaN   
+         Alaska                                                   NaN   
+         Arizona                                                  NaN   
+         
+                                     79                                      80  \textbackslash{}
+         Fact                         F                                      FN   
+         Fact Note  Fewer than 25 firms  Footnote on this item in place of data   
+         Alabama                    NaN                                     NaN   
+         Alaska                     NaN                                     NaN   
+         Arizona                    NaN                                     NaN   
+         
+                               81                                               82  \textbackslash{}
+         Fact                 NaN                                                S   
+         Fact Note  Not available  Suppressed; does not meet publication standards   
+         Alabama              NaN                                              NaN   
+         Alaska               NaN                                              NaN   
+         Arizona              NaN                                              NaN   
+         
+                                83                                                 84  
+         Fact                    X                                                  Z  
+         Fact Note  Not applicable  Value greater than zero but less than half uni{\ldots}  
+         Alabama               NaN                                                NaN  
+         Alaska                NaN                                                NaN  
+         Arizona               NaN                                                NaN  
+         
+         [5 rows x 85 columns]
+\end{Verbatim}
+            
+    The \texttt{Fact\ Note} row is just a bunch of NaNs. Let's go ahead and
+delete that:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Remove Fact Note Row on 2nd row}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fact Note}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:}                                                     0   \textbackslash{}
+         Fact      Population estimates, July 1, 2016,  (V2016)   
+         Alabama                                      4,863,300   
+         Alaska                                         741,894   
+         Arizona                                      6,931,071   
+         Arkansas                                     2,988,248   
+         
+                                                                  1   \textbackslash{}
+         Fact      Population estimates base, April 1, 2010,  (V2{\ldots}   
+         Alabama                                           4,780,131   
+         Alaska                                              710,249   
+         Arizona                                           6,392,301   
+         Arkansas                                          2,916,025   
+         
+                                                                  2   \textbackslash{}
+         Fact      Population, percent change - April 1, 2010 (es{\ldots}   
+         Alabama                                               1.70\%   
+         Alaska                                                4.50\%   
+         Arizona                                               8.40\%   
+         Arkansas                                              2.50\%   
+         
+                                                  3   \textbackslash{}
+         Fact      Population, Census, April 1, 2010   
+         Alabama                           4,779,736   
+         Alaska                              710,231   
+         Arizona                           6,392,017   
+         Arkansas                          2,915,918   
+         
+                                                                  4   \textbackslash{}
+         Fact      Persons under 5 years, percent, July 1, 2016, {\ldots}   
+         Alabama                                               6.00\%   
+         Alaska                                                7.30\%   
+         Arizona                                               6.30\%   
+         Arkansas                                              6.40\%   
+         
+                                                              5   \textbackslash{}
+         Fact      Persons under 5 years, percent, April 1, 2010   
+         Alabama                                           6.40\%   
+         Alaska                                            7.60\%   
+         Arizona                                           7.10\%   
+         Arkansas                                          6.80\%   
+         
+                                                                  6   \textbackslash{}
+         Fact      Persons under 18 years, percent, July 1, 2016,{\ldots}   
+         Alabama                                              22.60\%   
+         Alaska                                               25.20\%   
+         Arizona                                              23.50\%   
+         Arkansas                                             23.60\%   
+         
+                                                               7   \textbackslash{}
+         Fact      Persons under 18 years, percent, April 1, 2010   
+         Alabama                                           23.70\%   
+         Alaska                                            26.40\%   
+         Arizona                                           25.50\%   
+         Arkansas                                          24.40\%   
+         
+                                                                  8   \textbackslash{}
+         Fact      Persons 65 years and over, percent,  July 1, 2{\ldots}   
+         Alabama                                              16.10\%   
+         Alaska                                               10.40\%   
+         Arizona                                              16.90\%   
+         Arkansas                                             16.30\%   
+         
+                                                                  9  {\ldots}    75  \textbackslash{}
+         Fact      Persons 65 years and over, percent, April 1, 2010 {\ldots}   NaN   
+         Alabama                                              13.80\% {\ldots}   NaN   
+         Alaska                                                7.70\% {\ldots}   NaN   
+         Arizona                                              13.80\% {\ldots}   NaN   
+         Arkansas                                             14.40\% {\ldots}   NaN   
+         
+                            76   77   78   79   80   81   82   83   84  
+         Fact      Value Flags    -    D    F   FN  NaN    S    X    Z  
+         Alabama           NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  
+         Alaska            NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  
+         Arizona           NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  
+         Arkansas          NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  
+         
+         [5 rows x 85 columns]
+\end{Verbatim}
+            
+    The dataset has successfully been transposed, but now we don't have an
+index. Let's add that to the dataset:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Create an index for the rows}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{level}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}       index                                             0  \textbackslash{}
+         0      Fact  Population estimates, July 1, 2016,  (V2016)   
+         1   Alabama                                     4,863,300   
+         2    Alaska                                       741,894   
+         3   Arizona                                     6,931,071   
+         4  Arkansas                                     2,988,248   
+         
+                                                            1  \textbackslash{}
+         0  Population estimates base, April 1, 2010,  (V2{\ldots}   
+         1                                          4,780,131   
+         2                                            710,249   
+         3                                          6,392,301   
+         4                                          2,916,025   
+         
+                                                            2  \textbackslash{}
+         0  Population, percent change - April 1, 2010 (es{\ldots}   
+         1                                              1.70\%   
+         2                                              4.50\%   
+         3                                              8.40\%   
+         4                                              2.50\%   
+         
+                                            3  \textbackslash{}
+         0  Population, Census, April 1, 2010   
+         1                          4,779,736   
+         2                            710,231   
+         3                          6,392,017   
+         4                          2,915,918   
+         
+                                                            4  \textbackslash{}
+         0  Persons under 5 years, percent, July 1, 2016, {\ldots}   
+         1                                              6.00\%   
+         2                                              7.30\%   
+         3                                              6.30\%   
+         4                                              6.40\%   
+         
+                                                        5  \textbackslash{}
+         0  Persons under 5 years, percent, April 1, 2010   
+         1                                          6.40\%   
+         2                                          7.60\%   
+         3                                          7.10\%   
+         4                                          6.80\%   
+         
+                                                            6  \textbackslash{}
+         0  Persons under 18 years, percent, July 1, 2016,{\ldots}   
+         1                                             22.60\%   
+         2                                             25.20\%   
+         3                                             23.50\%   
+         4                                             23.60\%   
+         
+                                                         7  \textbackslash{}
+         0  Persons under 18 years, percent, April 1, 2010   
+         1                                          23.70\%   
+         2                                          26.40\%   
+         3                                          25.50\%   
+         4                                          24.40\%   
+         
+                                                            8 {\ldots}    75           76  \textbackslash{}
+         0  Persons 65 years and over, percent,  July 1, 2{\ldots} {\ldots}   NaN  Value Flags   
+         1                                             16.10\% {\ldots}   NaN          NaN   
+         2                                             10.40\% {\ldots}   NaN          NaN   
+         3                                             16.90\% {\ldots}   NaN          NaN   
+         4                                             16.30\% {\ldots}   NaN          NaN   
+         
+             77   78   79   80   81   82   83   84  
+         0    -    D    F   FN  NaN    S    X    Z  
+         1  NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  
+         2  NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  
+         3  NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  
+         4  NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  
+         
+         [5 rows x 86 columns]
+\end{Verbatim}
+            
+    Now that the index has been created, we should make the data in row 0
+the column header:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} Make the first row the column header}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Drop the first row now that it has been moved up as a column header}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} 0        Fact Population estimates, July 1, 2016,  (V2016)  \textbackslash{}
+         1     Alabama                                    4,863,300   
+         2      Alaska                                      741,894   
+         3     Arizona                                    6,931,071   
+         4    Arkansas                                    2,988,248   
+         5  California                                   39,250,017   
+         
+         0 Population estimates base, April 1, 2010,  (V2016)  \textbackslash{}
+         1                                          4,780,131   
+         2                                            710,249   
+         3                                          6,392,301   
+         4                                          2,916,025   
+         5                                         37,254,522   
+         
+         0 Population, percent change - April 1, 2010 (estimates base) to July 1, 2016,  (V2016)  \textbackslash{}
+         1                                              1.70\%                                      
+         2                                              4.50\%                                      
+         3                                              8.40\%                                      
+         4                                              2.50\%                                      
+         5                                              5.40\%                                      
+         
+         0 Population, Census, April 1, 2010  \textbackslash{}
+         1                         4,779,736   
+         2                           710,231   
+         3                         6,392,017   
+         4                         2,915,918   
+         5                        37,253,956   
+         
+         0 Persons under 5 years, percent, July 1, 2016,  (V2016)  \textbackslash{}
+         1                                              6.00\%       
+         2                                              7.30\%       
+         3                                              6.30\%       
+         4                                              6.40\%       
+         5                                              6.30\%       
+         
+         0 Persons under 5 years, percent, April 1, 2010  \textbackslash{}
+         1                                         6.40\%   
+         2                                         7.60\%   
+         3                                         7.10\%   
+         4                                         6.80\%   
+         5                                         6.80\%   
+         
+         0 Persons under 18 years, percent, July 1, 2016,  (V2016)  \textbackslash{}
+         1                                             22.60\%        
+         2                                             25.20\%        
+         3                                             23.50\%        
+         4                                             23.60\%        
+         5                                             23.20\%        
+         
+         0 Persons under 18 years, percent, April 1, 2010  \textbackslash{}
+         1                                         23.70\%   
+         2                                         26.40\%   
+         3                                         25.50\%   
+         4                                         24.40\%   
+         5                                         25.00\%   
+         
+         0 Persons 65 years and over, percent,  July 1, 2016,  (V2016) {\ldots}   NaN  \textbackslash{}
+         1                                             16.10\%          {\ldots}   NaN   
+         2                                             10.40\%          {\ldots}   NaN   
+         3                                             16.90\%          {\ldots}   NaN   
+         4                                             16.30\%          {\ldots}   NaN   
+         5                                             13.60\%          {\ldots}   NaN   
+         
+         0 Value Flags    -    D    F   FN  NaN    S    X    Z  
+         1         NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  
+         2         NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  
+         3         NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  
+         4         NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  
+         5         NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  
+         
+         [5 rows x 86 columns]
+\end{Verbatim}
+            
+    Let's rename the column header for the states to \texttt{state} rather
+than \texttt{Fact}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} Rename column header for state data to `state`}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n+nb}{str}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fact}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} 0    state Population estimates, July 1, 2016,  (V2016)  \textbackslash{}
+         1  Alabama                                    4,863,300   
+         
+         0 Population estimates base, April 1, 2010,  (V2016)  \textbackslash{}
+         1                                          4,780,131   
+         
+         0 Population, percent change - April 1, 2010 (estimates base) to July 1, 2016,  (V2016)  \textbackslash{}
+         1                                              1.70\%                                      
+         
+         0 Population, Census, April 1, 2010  \textbackslash{}
+         1                         4,779,736   
+         
+         0 Persons under 5 years, percent, July 1, 2016,  (V2016)  \textbackslash{}
+         1                                              6.00\%       
+         
+         0 Persons under 5 years, percent, April 1, 2010  \textbackslash{}
+         1                                         6.40\%   
+         
+         0 Persons under 18 years, percent, July 1, 2016,  (V2016)  \textbackslash{}
+         1                                             22.60\%        
+         
+         0 Persons under 18 years, percent, April 1, 2010  \textbackslash{}
+         1                                         23.70\%   
+         
+         0 Persons 65 years and over, percent,  July 1, 2016,  (V2016) {\ldots}   NaN  \textbackslash{}
+         1                                             16.10\%          {\ldots}   NaN   
+         
+         0 Value Flags    -    D    F   FN  NaN    S    X    Z  
+         1         NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN  
+         
+         [1 rows x 86 columns]
+\end{Verbatim}
+            
+    \subsubsection{Step 2. Trim Dataset}\label{step-2.-trim-dataset}
+
+There are quite a lot of data available in this dataset. Based on the
+initial review, I've decided to keep the following data. The main
+premise of choosing these data were based on the general relevance I
+felt they had to the NCIS data.
+
+Demographic data: -
+\texttt{Population\ estimates,\ July\ 1,\ 2016,\ \ (V2016)}, -
+\texttt{White\ alone,\ percent,\ July\ 1,\ 2016,\ \ (V2016)}, -
+\texttt{Black\ or\ African\ American\ alone,\ percent,\ July\ 1,\ 2016,\ \ (V2016)},
+-
+\texttt{American\ Indian\ and\ Alaska\ Native\ alone,\ percent,\ July\ 1,\ 2016,\ \ -\ (V2016)},
+- \texttt{Asian\ alone,\ percent,\ July\ 1,\ 2016,\ \ (V2016)}, -
+\texttt{Native\ Hawaiian\ and\ Other\ Pacific\ Islander\ alone,\ percent,\ July\ 1,\ 2016,\ \ (V2016)},
+- \texttt{Two\ or\ More\ Races,\ percent,\ July\ 1,\ 2016,\ \ (V2016)},
+- \texttt{Hispanic\ or\ Latino,\ percent,\ July\ 1,\ 2016,\ \ (V2016)},
+
+Education data: -
+\texttt{High\ school\ graduate\ or\ higher,\ percent\ of\ persons\ age\ 25\ years+,\ 2011-2015},
+-
+\texttt{Bachelor\textquotesingle{}s\ degree\ or\ higher,\ percent\ of\ persons\ age\ 25\ years+,\ 2011-2015},
+- \texttt{Median\ household\ income\ (in\ 2015\ dollars),\ 2011-2015}, -
+\texttt{Per\ capita\ income\ in\ past\ 12\ months\ (in\ 2015\ dollars),\ 2011-2015}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} Replace dataset with just the columns we are interested in keeping.}
+         \PY{n}{df2} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population estimates, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{White alone, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Black or African American alone, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{American Indian and Alaska Native alone, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Asian alone, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Native Hawaiian and Other Pacific Islander alone, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Two or More Races, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hispanic or Latino, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High school graduate or higher, percent of persons age 25 years+, 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bachelor}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{s degree or higher, percent of persons age 25 years+, 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median household income (in 2015 dollars), 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Per capita income in past 12 months (in 2015 dollars), 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}
+                    \PY{p}{]}\PY{p}{]}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} 0    state Population estimates, July 1, 2016,  (V2016)  \textbackslash{}
+         1  Alabama                                    4,863,300   
+         
+         0 White alone, percent, July 1, 2016,  (V2016)  \textbackslash{}
+         1                                       69.30\%   
+         
+         0 Black or African American alone, percent, July 1, 2016,  (V2016)  \textbackslash{}
+         1                                             26.80\%                 
+         
+         0 American Indian and Alaska Native alone, percent, July 1, 2016,  (V2016)  \textbackslash{}
+         1                                              0.70\%                         
+         
+         0 Asian alone, percent, July 1, 2016,  (V2016)  \textbackslash{}
+         1                                        1.40\%   
+         
+         0 Native Hawaiian and Other Pacific Islander alone, percent, July 1, 2016,  (V2016)  \textbackslash{}
+         1                                              0.10\%                                  
+         
+         0 Two or More Races, percent, July 1, 2016,  (V2016)  \textbackslash{}
+         1                                              1.60\%   
+         
+         0 Hispanic or Latino, percent, July 1, 2016,  (V2016)  \textbackslash{}
+         1                                              4.20\%    
+         
+         0 High school graduate or higher, percent of persons age 25 years+, 2011-2015  \textbackslash{}
+         1                                             84.30\%                            
+         
+         0 Bachelor's degree or higher, percent of persons age 25 years+, 2011-2015  \textbackslash{}
+         1                                             23.50\%                         
+         
+         0 Median household income (in 2015 dollars), 2011-2015  \textbackslash{}
+         1                                           \$43,623      
+         
+         0 Per capita income in past 12 months (in 2015 dollars), 2011-2015  
+         1                                           \$24,091                 
+\end{Verbatim}
+            
+    Now that the column headers have been trimmed, it would be a good time
+to rename these verbose headers to something easily typed:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} Rename verbose column names to shorter names.}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n+nb}{str}\PY{p}{,}
+                    \PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population estimates, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pop\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{White alone, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Black or African American alone, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{American Indian and Alaska Native alone, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{native\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Asian alone, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{asian\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Native Hawaiian and Other Pacific Islander alone, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{native\PYZus{}pacific\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Two or More Races, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2\PYZus{}or\PYZus{}more\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hispanic or Latino, percent, July 1, 2016,  (V2016)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispanic\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High school graduate or higher, percent of persons age 25 years+, 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hs\PYZus{}grad\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bachelor}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{s degree or higher, percent of persons age 25 years+, 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ba\PYZus{}grad\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median household income (in 2015 dollars), 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{med\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Per capita income in past 12 months (in 2015 dollars), 2011\PYZhy{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capita\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}
+                            \PY{p}{\PYZcb{}}\PY{p}{,}
+                    \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} 0    state   pop\_2016 white\_2016 black\_2016 native\_2016 asian\_2016  \textbackslash{}
+         1  Alabama  4,863,300     69.30\%     26.80\%       0.70\%      1.40\%   
+         
+         0 native\_pacific\_2016 2\_or\_more\_2016 hispanic\_2016 hs\_grad\_2011\_2015  \textbackslash{}
+         1               0.10\%          1.60\%         4.20\%            84.30\%   
+         
+         0 ba\_grad\_2011\_2015 med\_income\_2011\_2015 capita\_income\_2011\_2015  
+         1            23.50\%             \$43,623                 \$24,091   
+\end{Verbatim}
+            
+    \paragraph{Step 2. Convert Datatypes}\label{step-2.-convert-datatypes}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} Check datatype of df2 dataset}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} 0
+         state                      object
+         pop\_2016                   object
+         white\_2016                 object
+         black\_2016                 object
+         native\_2016                object
+         asian\_2016                 object
+         native\_pacific\_2016        object
+         2\_or\_more\_2016             object
+         hispanic\_2016              object
+         hs\_grad\_2011\_2015          object
+         ba\_grad\_2011\_2015          object
+         med\_income\_2011\_2015       object
+         capita\_income\_2011\_2015    object
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} 0    state   pop\_2016 white\_2016 black\_2016 native\_2016 asian\_2016  \textbackslash{}
+         1  Alabama  4,863,300     69.30\%     26.80\%       0.70\%      1.40\%   
+         
+         0 native\_pacific\_2016 2\_or\_more\_2016 hispanic\_2016 hs\_grad\_2011\_2015  \textbackslash{}
+         1               0.10\%          1.60\%         4.20\%            84.30\%   
+         
+         0 ba\_grad\_2011\_2015 med\_income\_2011\_2015 capita\_income\_2011\_2015  
+         1            23.50\%             \$43,623                 \$24,091   
+\end{Verbatim}
+            
+    All of the data listed here are string objects. We will convert all of
+these to relevant datatypes. Some things that we'll need to do in
+preparation for that are the following:
+
+\begin{itemize}
+\tightlist
+\item
+  Remove commas
+\item
+  Remove dollar symbols
+\item
+  Remove percentage symbols and convert to decimal values
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} Remove commas and dollar signs in preparation to convert string columns to numbers.}
+         \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pop\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pop\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{med\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{med\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capita\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capita\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} 0       state  pop\_2016 white\_2016 black\_2016 native\_2016 asian\_2016  \textbackslash{}
+         1     Alabama   4863300     69.30\%     26.80\%       0.70\%      1.40\%   
+         2      Alaska    741894     66.10\%      3.80\%      15.20\%      6.30\%   
+         3     Arizona   6931071     83.30\%      4.90\%       5.40\%      3.40\%   
+         4    Arkansas   2988248     79.40\%     15.70\%       1.00\%      1.60\%   
+         5  California  39250017     72.70\%      6.50\%       1.70\%     14.80\%   
+         
+         0 native\_pacific\_2016 2\_or\_more\_2016 hispanic\_2016 hs\_grad\_2011\_2015  \textbackslash{}
+         1               0.10\%          1.60\%         4.20\%            84.30\%   
+         2               1.30\%          7.30\%         7.00\%            92.10\%   
+         3               0.30\%          2.80\%        30.90\%            86.00\%   
+         4               0.30\%          2.00\%         7.30\%            84.80\%   
+         5               0.50\%          3.80\%        38.90\%            81.80\%   
+         
+         0 ba\_grad\_2011\_2015 med\_income\_2011\_2015 capita\_income\_2011\_2015  
+         1            23.50\%               43623                   24091   
+         2            28.00\%               72515                   33413   
+         3            27.50\%               50255                   25848   
+         4            21.10\%               41371                   22798   
+         5            31.40\%               61818                   30318   
+\end{Verbatim}
+            
+    Converting percentages to decimals will be a little bit trickier. We
+will use a function and iterate that function to convert strings to
+numbers.
+
+While working through this section, I also noticed that some cells were
+listed as "Z" under the \texttt{native\_pacific\_2016} column. This was
+causing the function to convert strings to numbers to fail, so this
+needed to be dealt with first. In these cases, I've decided to convert
+these cells to 0.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} Check non numeric values in dataset}
+         \PY{n+nb}{sum}\PY{p}{(}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{native\PYZus{}pacific\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} 4
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} Convert cells with \PYZsq{}Z\PYZsq{} to 0}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{native\PYZus{}pacific\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{native\PYZus{}pacific\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    Now that the data cells have been cleaned a bit, we will use the
+function to convert percentage strings to numbers.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} Function to convert percentage strings to decimals}
+         \PY{k}{def} \PY{n+nf}{p2f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb}{float}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{100}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{x}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} Iterate through colums to convert string percentage to numbers, and change its datatype to float64.}
+         \PY{c+c1}{\PYZsh{} Relevant columns are from white\PYZus{}2016 to ba\PYZus{}grad\PYZus{}2011\PYZus{}2015}
+         \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{df2}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ba\PYZus{}grad\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+             \PY{n}{df2}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{p2f}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} Check datatypes from white\PYZus{}2016 to ba\PYZus{}grad\PYZus{}2011\PYZus{}2015}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} 0
+         state                       object
+         pop\_2016                    object
+         white\_2016                 float64
+         black\_2016                 float64
+         native\_2016                float64
+         asian\_2016                 float64
+         native\_pacific\_2016        float64
+         2\_or\_more\_2016             float64
+         hispanic\_2016              float64
+         hs\_grad\_2011\_2015          float64
+         ba\_grad\_2011\_2015          float64
+         med\_income\_2011\_2015        object
+         capita\_income\_2011\_2015     object
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{df2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} 0            state  pop\_2016  white\_2016  black\_2016  native\_2016  asian\_2016  \textbackslash{}
+         1          Alabama   4863300       0.693       0.268        0.007       0.014   
+         2           Alaska    741894       0.661       0.038        0.152       0.063   
+         3          Arizona   6931071       0.833       0.049        0.054       0.034   
+         4         Arkansas   2988248       0.794       0.157        0.010       0.016   
+         5       California  39250017       0.727       0.065        0.017       0.148   
+         6         Colorado   5540545       0.875       0.045        0.016       0.033   
+         7      Connecticut   3576452       0.806       0.118        0.005       0.047   
+         8         Delaware    952065       0.701       0.226        0.006       0.040   
+         9          Florida  20612439       0.776       0.168        0.005       0.029   
+         10         Georgia  10310371       0.612       0.320        0.005       0.041   
+         11          Hawaii   1428557       0.258       0.022        0.004       0.377   
+         12           Idaho   1683140       0.933       0.008        0.018       0.015   
+         13        Illinois  12801539       0.772       0.147        0.006       0.055   
+         14         Indiana   6633053       0.856       0.097        0.004       0.022   
+         15            Iowa   3134693       0.914       0.037        0.005       0.025   
+         16          Kansas   2907289       0.866       0.062        0.012       0.030   
+         17        Kentucky   4436974       0.880       0.083        0.003       0.015   
+         18       Louisiana   4681666       0.632       0.326        0.008       0.018   
+         19           Maine   1331479       0.948       0.015        0.007       0.012   
+         20        Maryland   6016447       0.593       0.307        0.006       0.066   
+         21   Massachusetts   6811779       0.818       0.086        0.005       0.067   
+         22        Michigan   9928300       0.796       0.142        0.007       0.031   
+         23       Minnesota   5519952       0.850       0.062        0.013       0.049   
+         24     Mississippi   2988726       0.593       0.377        0.006       0.011   
+         25        Missouri   6093000       0.832       0.118        0.006       0.020   
+         26         Montana   1042520       0.892       0.006        0.066       0.008   
+         27        Nebraska   1907116       0.889       0.050        0.014       0.025   
+         28          Nevada   2940058       0.751       0.096        0.016       0.087   
+         29   New Hampshire   1334795       0.938       0.015        0.003       0.027   
+         30      New Jersey   8944469       0.724       0.150        0.006       0.098   
+         31      New Mexico   2081015       0.826       0.025        0.106       0.017   
+         32        New York  19745289       0.699       0.177        0.010       0.089   
+         33  North Carolina  10146788       0.710       0.222        0.016       0.029   
+         34    North Dakota    757952       0.879       0.029        0.055       0.015   
+         35            Ohio  11614373       0.825       0.128        0.003       0.022   
+         36        Oklahoma   3923561       0.746       0.078        0.092       0.022   
+         37          Oregon   4093465       0.874       0.021        0.018       0.045   
+         38    Pennsylvania  12784227       0.824       0.118        0.004       0.035   
+         39    Rhode Island   1056426       0.844       0.081        0.010       0.036   
+         40  South Carolina   4961119       0.685       0.275        0.005       0.016   
+         41    South Dakota    865454       0.852       0.020        0.090       0.015   
+         42       Tennessee   6651194       0.787       0.171        0.004       0.018   
+         43           Texas  27862596       0.794       0.126        0.010       0.048   
+         44            Utah   3051217       0.911       0.014        0.016       0.025   
+         45         Vermont    624594       0.946       0.013        0.004       0.018   
+         46        Virginia   8411808       0.700       0.198        0.005       0.066   
+         47      Washington   7288000       0.800       0.041        0.019       0.086   
+         48   West Virginia   1831102       0.936       0.036        0.002       0.008   
+         49       Wisconsin   5778708       0.875       0.066        0.011       0.028   
+         50         Wyoming    585501       0.928       0.013        0.027       0.010   
+         
+         0   native\_pacific\_2016  2\_or\_more\_2016  hispanic\_2016  hs\_grad\_2011\_2015  \textbackslash{}
+         1                 0.001           0.016          0.042              0.843   
+         2                 0.013           0.073          0.070              0.921   
+         3                 0.003           0.028          0.309              0.860   
+         4                 0.003           0.020          0.073              0.848   
+         5                 0.005           0.038          0.389              0.818   
+         6                 0.002           0.030          0.213              0.907   
+         7                 0.001           0.023          0.157              0.899   
+         8                 0.001           0.026          0.092              0.884   
+         9                 0.001           0.021          0.249              0.869   
+         10                0.001           0.021          0.094              0.854   
+         11                0.102           0.237          0.104              0.910   
+         12                0.002           0.024          0.123              0.895   
+         13                0.001           0.019          0.170              0.879   
+         14                0.001           0.020          0.068              0.878   
+         15                0.001           0.018          0.058              0.915   
+         16                0.001           0.029          0.116              0.902   
+         17                0.001           0.019          0.035              0.842   
+         18                0.001           0.016          0.050              0.834   
+         19                0.000           0.017          0.016              0.916   
+         20                0.001           0.028          0.098              0.894   
+         21                0.001           0.023          0.115              0.898   
+         22                0.000           0.024          0.050              0.896   
+         23                0.001           0.024          0.052              0.924   
+         24                0.001           0.012          0.031              0.823   
+         25                0.001           0.022          0.041              0.884   
+         26                0.001           0.027          0.036              0.928   
+         27                0.001           0.021          0.107              0.907   
+         28                0.008           0.042          0.285              0.851   
+         29                0.001           0.017          0.035              0.923   
+         30                0.001           0.022          0.200              0.886   
+         31                0.002           0.025          0.485              0.842   
+         32                0.001           0.025          0.190              0.856   
+         33                0.001           0.022          0.092              0.858   
+         34                0.001           0.021          0.036              0.917   
+         35                0.001           0.022          0.037              0.891   
+         36                0.002           0.061          0.103              0.869   
+         37                0.004           0.038          0.128              0.898   
+         38                0.001           0.019          0.070              0.892   
+         39                0.002           0.027          0.149              0.862   
+         40                0.001           0.018          0.055              0.856   
+         41                0.001           0.023          0.037              0.909   
+         42                0.001           0.019          0.052              0.855   
+         43                0.001           0.019          0.391              0.819   
+         44                0.010           0.025          0.138              0.912   
+         45                0.000           0.019          0.019              0.918   
+         46                0.001           0.029          0.091              0.883   
+         47                0.008           0.046          0.124              0.904   
+         48                0.000           0.017          0.015              0.850   
+         49                0.001           0.019          0.067              0.910   
+         50                0.001           0.021          0.100              0.923   
+         
+         0   ba\_grad\_2011\_2015 med\_income\_2011\_2015 capita\_income\_2011\_2015  
+         1               0.235               43623                   24091   
+         2               0.280               72515                   33413   
+         3               0.275               50255                   25848   
+         4               0.211               41371                   22798   
+         5               0.314               61818                   30318   
+         6               0.381               60629                   32217   
+         7               0.376               70331                   38803   
+         8               0.300               60509                   30554   
+         9               0.273               47507                   26829   
+         10              0.288               49620                   25737   
+         11              0.308               69515                   29822   
+         12              0.259               47583                   23399   
+         13              0.323               57574                   30494   
+         14              0.241               49255                   25346   
+         15              0.267               53183                   27950   
+         16              0.310               52205                   27706   
+         17              0.223               43740                   24063   
+         18              0.225               45047                   24981   
+         19              0.290               49331                   27655   
+         20              0.379               74551                   36897   
+         21              0.405               68563                   36895   
+         22              0.269               49576                   26607   
+         23              0.337               61492                   32157   
+         24              0.207               39665                   21057   
+         25              0.271               48173                   26259   
+         26              0.295               47169                   26381   
+         27              0.293               52997                   27882   
+         28              0.230               51847                   26541   
+         29              0.349               66779                   34362   
+         30              0.368               72093                   36582   
+         31              0.263                44963                   24012  
+         32              0.342                59269                   33236  
+         33              0.284                46868                   25920  
+         34              0.277                57181                   32035  
+         35              0.261                49429                   26953  
+         36              0.241                46879                   25032  
+         37              0.308                51243                   27684  
+         38              0.286                53599                   29291  
+         39              0.319                56852                   31118  
+         40              0.258                45483                   24604  
+         41              0.270                50957                   26747  
+         42              0.249                45219                   25227  
+         43              0.276               53207                   26999   
+         44              0.311               60727                   24686   
+         45              0.360               55176                   29894   
+         46              0.363               65015                   34152   
+         47              0.329               61062                   31762   
+         48              0.192               41751                   23450   
+         49              0.278               53357                   28340   
+         50              0.257               58840                   29803   
+\end{Verbatim}
+            
+    Finally, we'll need to convert the \texttt{population} column and the
+income columns to number datatypes as well.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{} Convert columns with strings to numbers.}
+         \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pop\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pop\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{med\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{med\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capita\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capita\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{df2}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} 0
+         state                       object
+         pop\_2016                     int64
+         white\_2016                 float64
+         black\_2016                 float64
+         native\_2016                float64
+         asian\_2016                 float64
+         native\_pacific\_2016        float64
+         2\_or\_more\_2016             float64
+         hispanic\_2016              float64
+         hs\_grad\_2011\_2015          float64
+         ba\_grad\_2011\_2015          float64
+         med\_income\_2011\_2015       float64
+         capita\_income\_2011\_2015    float64
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} 0       state  pop\_2016  white\_2016  black\_2016  native\_2016  asian\_2016  \textbackslash{}
+         1     Alabama   4863300       0.693       0.268        0.007       0.014   
+         2      Alaska    741894       0.661       0.038        0.152       0.063   
+         3     Arizona   6931071       0.833       0.049        0.054       0.034   
+         4    Arkansas   2988248       0.794       0.157        0.010       0.016   
+         5  California  39250017       0.727       0.065        0.017       0.148   
+         
+         0  native\_pacific\_2016  2\_or\_more\_2016  hispanic\_2016  hs\_grad\_2011\_2015  \textbackslash{}
+         1                0.001           0.016          0.042              0.843   
+         2                0.013           0.073          0.070              0.921   
+         3                0.003           0.028          0.309              0.860   
+         4                0.003           0.020          0.073              0.848   
+         5                0.005           0.038          0.389              0.818   
+         
+         0  ba\_grad\_2011\_2015  med\_income\_2011\_2015  capita\_income\_2011\_2015  
+         1              0.235               43623.0                  24091.0  
+         2              0.280               72515.0                  33413.0  
+         3              0.275               50255.0                  25848.0  
+         4              0.211               41371.0                  22798.0  
+         5              0.314               61818.0                  30318.0  
+\end{Verbatim}
+            
+    \subsubsection{Data Wrangling:
+Conclusion}\label{data-wrangling-conclusion}
+
+At this point, we have 2 clean datasets that we can start exploring.
+
+     \#\# Exploratory Data Analysis
+
+\subsubsection{Research Question 1: What state has the highest gun
+ownership?}\label{research-question-1-what-state-has-the-highest-gun-ownership}
+
+    To answer this question, we've pulled some relevant columns from the
+Census Data. One thing to note is that the data listed in the df2
+dataset is of 2 types: one that is specific to the year 2016 (e.g.
+'Population estimates, July 1, 2016'), while the other columns are an
+aggregate of years ('Per capita income in past 12 months (in 2015
+dollars), 2011-2015').
+
+This complicates our data exploration somewhat, as it will require 2
+different datasets to explore the two types of data.
+
+    \paragraph{Merging 2016 Census Data with NCIS
+Dataset}\label{merging-2016-census-data-with-ncis-dataset}
+
+First, we will explore the easier of the table - the 2016 Census data
+matched with 2016 NICS data. Before we explore the data, we'll first
+need to merge the two datasets together.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} Pull 2016 NCIS data from NCIS dataset}
+         \PY{n}{df1\PYZus{}2016} \PY{o}{=} \PY{n}{df1\PYZus{}by\PYZus{}year}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df1\PYZus{}2016}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{df1\PYZus{}2016}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:}   year       state     permit   handgun  long\_gun     other  multiple   totals
+         0 2016     Alabama   291039.0  153123.0  121963.0    6104.0      6545   616947
+         1 2016      Alaska     3121.0   37491.0   36887.0    2889.0      2316    87647
+         2 2016     Arizona    87771.0  166784.0  108988.0   13122.0      7908   416279
+         3 2016    Arkansas    55456.0   80244.0   82120.0    3059.0      4400   266014
+         4 2016  California  1036981.0  560355.0  554550.0  211707.0         0  2377167
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} Merge Census dataset}
+         \PY{n}{df\PYZus{}2016} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df1\PYZus{}2016}\PY{p}{,} \PY{n}{df2}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{state}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{df\PYZus{}2016}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:}   year       state     permit   handgun  long\_gun     other  multiple  \textbackslash{}
+         0 2016     Alabama   291039.0  153123.0  121963.0    6104.0      6545   
+         1 2016      Alaska     3121.0   37491.0   36887.0    2889.0      2316   
+         2 2016     Arizona    87771.0  166784.0  108988.0   13122.0      7908   
+         3 2016    Arkansas    55456.0   80244.0   82120.0    3059.0      4400   
+         4 2016  California  1036981.0  560355.0  554550.0  211707.0         0   
+         
+             totals  pop\_2016  white\_2016  black\_2016  native\_2016  asian\_2016  \textbackslash{}
+         0   616947   4863300       0.693       0.268        0.007       0.014   
+         1    87647    741894       0.661       0.038        0.152       0.063   
+         2   416279   6931071       0.833       0.049        0.054       0.034   
+         3   266014   2988248       0.794       0.157        0.010       0.016   
+         4  2377167  39250017       0.727       0.065        0.017       0.148   
+         
+            native\_pacific\_2016  2\_or\_more\_2016  hispanic\_2016  hs\_grad\_2011\_2015  \textbackslash{}
+         0                0.001           0.016          0.042              0.843   
+         1                0.013           0.073          0.070              0.921   
+         2                0.003           0.028          0.309              0.860   
+         3                0.003           0.020          0.073              0.848   
+         4                0.005           0.038          0.389              0.818   
+         
+            ba\_grad\_2011\_2015  med\_income\_2011\_2015  capita\_income\_2011\_2015  
+         0              0.235               43623.0                  24091.0  
+         1              0.280               72515.0                  33413.0  
+         2              0.275               50255.0                  25848.0  
+         3              0.211               41371.0                  22798.0  
+         4              0.314               61818.0                  30318.0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} Drop irrelevant rows, i.e. 2011\PYZhy{}2015 census data columns}
+         \PY{n}{df\PYZus{}2016}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hs\PYZus{}grad\PYZus{}2011\PYZus{}2015}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ba\PYZus{}grad\PYZus{}2011\PYZus{}2015}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{med\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{capita\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s2}{\PYZdq{}}
+         \PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{df\PYZus{}2016}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:}    year           state     permit   handgun  long\_gun     other  multiple  \textbackslash{}
+         0  2016         Alabama   291039.0  153123.0  121963.0    6104.0      6545   
+         1  2016          Alaska     3121.0   37491.0   36887.0    2889.0      2316   
+         2  2016         Arizona    87771.0  166784.0  108988.0   13122.0      7908   
+         3  2016        Arkansas    55456.0   80244.0   82120.0    3059.0      4400   
+         4  2016      California  1036981.0  560355.0  554550.0  211707.0         0   
+         5  2016        Colorado    85087.0  242502.0  180026.0   15890.0     14293   
+         6  2016     Connecticut   148949.0  122375.0   43813.0    2445.0         0   
+         7  2016        Delaware     8440.0   25574.0   21746.0    1268.0      1034   
+         8  2016         Florida   337086.0  662308.0  316232.0   42439.0     25142   
+         9  2016         Georgia   233115.0  194800.0  128277.0    6474.0      7478   
+         10 2016          Hawaii    16627.0       0.0       0.0       0.0         0   
+         11 2016           Idaho    38086.0   46523.0   55591.0    2804.0      2406   
+         12 2016        Illinois   962930.0  352411.0  177255.0       0.0     12133   
+         13 2016         Indiana   946912.0  278182.0  177218.0   17764.0      9082   
+         14 2016            Iowa   161841.0    2790.0   35254.0     393.0        70   
+         15 2016          Kansas    19402.0   81116.0   73748.0    5323.0      4271   
+         16 2016        Kentucky  3372613.0  140721.0  109030.0    3886.0      6943   
+         17 2016       Louisiana    35141.0  171588.0  139122.0   11420.0      8609   
+         18 2016           Maine     6986.0   48845.0   46780.0    3032.0      2458   
+         19 2016        Maryland    36025.0   52305.0   71892.0    1789.0       337   
+         20 2016   Massachusetts    97516.0   75977.0   41931.0    7096.0      2480   
+         21 2016        Michigan   251162.0  164878.0  129089.0    6382.0      2815   
+         22 2016       Minnesota   350315.0  133962.0  143543.0   10289.0      5046   
+         23 2016     Mississippi    22564.0  119050.0   92822.0    4081.0      5263   
+         24 2016        Missouri    90972.0  274754.0  202708.0   17404.0     12753   
+         25 2016         Montana    20512.0   37547.0   56834.0    2142.0      2678   
+         26 2016        Nebraska    58386.0    1717.0   26494.0     260.0        82   
+         27 2016          Nevada    30950.0   66158.0   38105.0    3387.0      3723   
+         28 2016   New Hampshire    48347.0   68529.0   44681.0    2206.0        55   
+         29 2016      New Jersey        0.0   70249.0   49099.0    2505.0         0   
+         30 2016      New Mexico    14149.0   69434.0   55664.0    4924.0      3732   
+         31 2016        New York    49646.0  133285.0  197670.0   12500.0      2466   
+         32 2016  North Carolina   345364.0   16595.0  176919.0    9886.0      2812   
+         33 2016    North Dakota    13240.0   19975.0   34013.0    1284.0       972   
+         34 2016            Ohio   167449.0  394570.0  243963.0   23993.0     16333   
+         35 2016        Oklahoma        0.0  166181.0  130514.0   13098.0     10661   
+         36 2016          Oregon     2903.0  178716.0  143029.0       0.0         0   
+         37 2016    Pennsylvania   333755.0  642232.0  158141.0     249.0         0   
+         38 2016    Rhode Island        0.0   14262.0   10204.0     885.0      1999   
+         39 2016  South Carolina   149428.0  132473.0   87413.0    6778.0      4490   
+         40 2016    South Dakota    16279.0   36520.0   49522.0    3134.0      2184   
+         41 2016       Tennessee   106082.0  319169.0  210161.0    5011.0     11092   
+         42 2016           Texas   390462.0  637476.0  481609.0   40329.0     33102   
+         43 2016            Utah   178393.0   47401.0   54133.0    3514.0      1191   
+         44 2016         Vermont        0.0   18320.0   18853.0    1291.0       885   
+         45 2016        Virginia     9817.0  295963.0  209975.0   12547.0         0   
+         46 2016      Washington   268274.0  214106.0  151029.0   23732.0      8028   
+         47 2016   West Virginia    26806.0   92124.0   81105.0    3643.0      5283   
+         48 2016       Wisconsin   199431.0  186300.0  159784.0    9867.0       523   
+         49 2016         Wyoming     7938.0   22569.0   25815.0    1457.0      1295   
+         
+              totals  pop\_2016  white\_2016  black\_2016  native\_2016  asian\_2016  \textbackslash{}
+         0    616947   4863300       0.693       0.268        0.007       0.014   
+         1     87647    741894       0.661       0.038        0.152       0.063   
+         2    416279   6931071       0.833       0.049        0.054       0.034   
+         3    266014   2988248       0.794       0.157        0.010       0.016   
+         4   2377167  39250017       0.727       0.065        0.017       0.148   
+         5    540514   5540545       0.875       0.045        0.016       0.033   
+         6    317692   3576452       0.806       0.118        0.005       0.047   
+         7     59430    952065       0.701       0.226        0.006       0.040   
+         8   1435340  20612439       0.776       0.168        0.005       0.029   
+         9    612985  10310371       0.612       0.320        0.005       0.041   
+         10    16681   1428557       0.258       0.022        0.004       0.377   
+         11   156343   1683140       0.933       0.008        0.018       0.015   
+         12  1924070  12801539       0.772       0.147        0.006       0.055   
+         13  1436725   6633053       0.856       0.097        0.004       0.022   
+         14   202277   3134693       0.914       0.037        0.005       0.025   
+         15   196548   2907289       0.866       0.062        0.012       0.030   
+         16  3676847   4436974       0.880       0.083        0.003       0.015   
+         17   391869   4681666       0.632       0.326        0.008       0.018   
+         18   111582   1331479       0.948       0.015        0.007       0.012   
+         19   165367   6016447       0.593       0.307        0.006       0.066   
+         20   226212   6811779       0.818       0.086        0.005       0.067   
+         21   579605   9928300       0.796       0.142        0.007       0.031   
+         22   651599   5519952       0.850       0.062        0.013       0.049   
+         23   276161   2988726       0.593       0.377        0.006       0.011   
+         24   632319   6093000       0.832       0.118        0.006       0.020   
+         25   136337   1042520       0.892       0.006        0.066       0.008   
+         26    88663   1907116       0.889       0.050        0.014       0.025   
+         27   147992   2940058       0.751       0.096        0.016       0.087   
+         28   165164   1334795       0.938       0.015        0.003       0.027   
+         29   121853   8944469       0.724       0.150        0.006       0.098   
+         30   161216   2081015       0.826       0.025        0.106       0.017   
+         31   404772  19745289       0.699       0.177        0.010       0.089   
+         32   601445  10146788       0.710       0.222        0.016       0.029   
+         33    72036    757952       0.879       0.029        0.055       0.015   
+         34   875724  11614373       0.825       0.128        0.003       0.022   
+         35   364590   3923561       0.746       0.078        0.092       0.022   
+         36   324708   4093465       0.874       0.021        0.018       0.045   
+         37  1143220  12784227       0.824       0.118        0.004       0.035   
+         38    27758   1056426       0.844       0.081        0.010       0.036   
+         39   402978   4961119       0.685       0.275        0.005       0.016   
+         40   111921    865454       0.852       0.020        0.090       0.015   
+         41   714774   6651194       0.787       0.171        0.004       0.018   
+         42  1721726  27862596       0.794       0.126        0.010       0.048   
+         43   294907   3051217       0.911       0.014        0.016       0.025   
+         44    39417    624594       0.946       0.013        0.004       0.018   
+         45   528369   8411808       0.700       0.198        0.005       0.066   
+         46   713996   7288000       0.800       0.041        0.019       0.086   
+         47   242350   1831102       0.936       0.036        0.002       0.008   
+         48   561819   5778708       0.875       0.066        0.011       0.028   
+         49    63594    585501       0.928       0.013        0.027       0.010   
+         
+             native\_pacific\_2016  2\_or\_more\_2016  hispanic\_2016  
+         0                 0.001           0.016          0.042  
+         1                 0.013           0.073          0.070  
+         2                 0.003           0.028          0.309  
+         3                 0.003           0.020          0.073  
+         4                 0.005           0.038          0.389  
+         5                 0.002           0.030          0.213  
+         6                 0.001           0.023          0.157  
+         7                 0.001           0.026          0.092  
+         8                 0.001           0.021          0.249  
+         9                 0.001           0.021          0.094  
+         10                0.102           0.237          0.104  
+         11                0.002           0.024          0.123  
+         12                0.001           0.019          0.170  
+         13                0.001           0.020          0.068  
+         14                0.001           0.018          0.058  
+         15                0.001           0.029          0.116  
+         16                0.001           0.019          0.035  
+         17                0.001           0.016          0.050  
+         18                0.000           0.017          0.016  
+         19                0.001           0.028          0.098  
+         20                0.001           0.023          0.115  
+         21                0.000           0.024          0.050  
+         22                0.001           0.024          0.052  
+         23                0.001           0.012          0.031  
+         24                0.001           0.022          0.041  
+         25                0.001           0.027          0.036  
+         26                0.001           0.021          0.107  
+         27                0.008           0.042          0.285  
+         28                0.001           0.017          0.035  
+         29                0.001           0.022          0.200  
+         30                0.002           0.025          0.485  
+         31                0.001           0.025          0.190  
+         32                0.001           0.022          0.092  
+         33                0.001           0.021          0.036  
+         34                0.001           0.022          0.037  
+         35                0.002           0.061          0.103  
+         36                0.004           0.038          0.128  
+         37                0.001           0.019          0.070  
+         38                0.002           0.027          0.149  
+         39                0.001           0.018          0.055  
+         40                0.001           0.023          0.037  
+         41                0.001           0.019          0.052  
+         42                0.001           0.019          0.391  
+         43                0.010           0.025          0.138  
+         44                0.000           0.019          0.019  
+         45                0.001           0.029          0.091  
+         46                0.008           0.046          0.124  
+         47                0.000           0.017          0.015  
+         48                0.001           0.019          0.067  
+         49                0.001           0.021          0.100  
+\end{Verbatim}
+            
+    \paragraph{Exploring 2016 Merged
+Dataset}\label{exploring-2016-merged-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} Show a bar graph showing states ranked by number of permit checks for handguns in 2016}
+         \PY{n}{df\PYZus{}2016}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white\PYZus{}2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_76_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{} Show a bar graph showing states rankedby population size}
+         \PY{n}{df\PYZus{}2016}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{handgun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{handgun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_77_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The bar chart shows the top 5 states with the most amount of permit
+checks are: 1. Florida 2. Pennsylvania 3. Texas 4. California 5. Ohio
+
+Florida, California and Texas are not that surprising to see at the top,
+as they are large states that tend to have a "gun-friendly" culture. On
+the other hand, it is somewhat surprising that Pennsylvania and Ohio
+seem to have quite a high number as well.
+
+    \subsubsection{Research Question 2 Does Income Affect Rate of Gun
+Ownership?}\label{research-question-2-does-income-affect-rate-of-gun-ownership}
+
+    Let's see if any of the other demographics affect the rate of gun
+ownership. In this case, we'll see if factors such as the median income
+of a state or income per capita has any correlation with the gun
+ownership rate.
+
+    First, we'll go back to the merged dataset as the previous one, but just
+focus on the income fields.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} Merge Census dataset}
+         \PY{n}{df\PYZus{}2016\PYZus{}2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df1\PYZus{}2016}\PY{p}{,} \PY{n}{df2}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{state}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{df\PYZus{}2016\PYZus{}2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:}   year       state     permit   handgun  long\_gun     other  multiple  \textbackslash{}
+         0 2016     Alabama   291039.0  153123.0  121963.0    6104.0      6545   
+         1 2016      Alaska     3121.0   37491.0   36887.0    2889.0      2316   
+         2 2016     Arizona    87771.0  166784.0  108988.0   13122.0      7908   
+         3 2016    Arkansas    55456.0   80244.0   82120.0    3059.0      4400   
+         4 2016  California  1036981.0  560355.0  554550.0  211707.0         0   
+         
+             totals  pop\_2016  white\_2016  black\_2016  native\_2016  asian\_2016  \textbackslash{}
+         0   616947   4863300       0.693       0.268        0.007       0.014   
+         1    87647    741894       0.661       0.038        0.152       0.063   
+         2   416279   6931071       0.833       0.049        0.054       0.034   
+         3   266014   2988248       0.794       0.157        0.010       0.016   
+         4  2377167  39250017       0.727       0.065        0.017       0.148   
+         
+            native\_pacific\_2016  2\_or\_more\_2016  hispanic\_2016  hs\_grad\_2011\_2015  \textbackslash{}
+         0                0.001           0.016          0.042              0.843   
+         1                0.013           0.073          0.070              0.921   
+         2                0.003           0.028          0.309              0.860   
+         3                0.003           0.020          0.073              0.848   
+         4                0.005           0.038          0.389              0.818   
+         
+            ba\_grad\_2011\_2015  med\_income\_2011\_2015  capita\_income\_2011\_2015  
+         0              0.235               43623.0                  24091.0  
+         1              0.280               72515.0                  33413.0  
+         2              0.275               50255.0                  25848.0  
+         3              0.211               41371.0                  22798.0  
+         4              0.314               61818.0                  30318.0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{} Drop irrelevant rows, i.e. 2011\PYZhy{}2015 census data columns}
+         \PY{n}{df\PYZus{}2016\PYZus{}2}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white\PYZus{}2016}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black\PYZus{}2016}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{native\PYZus{}2016}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{asian\PYZus{}2016}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{native\PYZus{}pacific\PYZus{}2016}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2\PYZus{}or\PYZus{}more\PYZus{}2016}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hispanic\PYZus{}2016}\PY{l+s+s2}{\PYZdq{}}
+         \PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{c+c1}{\PYZsh{} Show new dataframe}
+         \PY{n}{df\PYZus{}2016\PYZus{}2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:}   year       state     permit   handgun  long\_gun     other  multiple  \textbackslash{}
+         0 2016     Alabama   291039.0  153123.0  121963.0    6104.0      6545   
+         1 2016      Alaska     3121.0   37491.0   36887.0    2889.0      2316   
+         2 2016     Arizona    87771.0  166784.0  108988.0   13122.0      7908   
+         3 2016    Arkansas    55456.0   80244.0   82120.0    3059.0      4400   
+         4 2016  California  1036981.0  560355.0  554550.0  211707.0         0   
+         
+             totals  pop\_2016  hs\_grad\_2011\_2015  ba\_grad\_2011\_2015  \textbackslash{}
+         0   616947   4863300              0.843              0.235   
+         1    87647    741894              0.921              0.280   
+         2   416279   6931071              0.860              0.275   
+         3   266014   2988248              0.848              0.211   
+         4  2377167  39250017              0.818              0.314   
+         
+            med\_income\_2011\_2015  capita\_income\_2011\_2015  
+         0               43623.0                  24091.0  
+         1               72515.0                  33413.0  
+         2               50255.0                  25848.0  
+         3               41371.0                  22798.0  
+         4               61818.0                  30318.0  
+\end{Verbatim}
+            
+    First we'll check whether there is any correlation between median income
+versus handguns.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{} Show a scatter plot between population counts and the number permit checks for handguns in 2016}
+         \PY{n}{df\PYZus{}2016\PYZus{}2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{med\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{permit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a2dbe2a20>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_86_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Visually, there appears to be little correlation between the two. Let's
+verify this using a correlation function.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{df\PYZus{}2016\PYZus{}2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{med\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{df\PYZus{}2016\PYZus{}2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{permit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:} -0.15750927001343612
+\end{Verbatim}
+            
+    The number above is pretty close to zero. That indicates that there is
+pretty low association between the two variables. How about we try some
+other factors.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} Show a scatter plot between population counts and the number permit checks for handguns in 2016}
+         \PY{n}{df\PYZus{}2016\PYZus{}2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capita\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{permit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a2de51ef0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_90_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{df\PYZus{}2016\PYZus{}2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capita\PYZus{}income\PYZus{}2011\PYZus{}2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{df\PYZus{}2016\PYZus{}2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{permit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}68}]:} -0.15533856294386786
+\end{Verbatim}
+            
+    The number is pretty close to zero again, indicating the low association
+between the two variables.
+
+     \#\# Conclusions
+
+    This notebook shows some findings the relation between population
+demographics and gun ownership.
+
+The first finding was 1. Florida 2. Pennsylvania 3. Texas 4. California
+5. Ohio
+
+Florida, California and Texas are not that surprising to see at the top,
+as they are large states that tend to have a "gun-friendly" culture. On
+the other hand, it is somewhat surprising that Pennsylvania and Ohio
+seem to have quite a high number as well.
+
+The second analysis was whether factors such as median income or per
+capita income had any correlation with the number of permits issued. By
+conducting a scatter plot and correlation function, we see that there is
+very little correlation between the two.
+
+    The data that we analyzed is limited by the fact that we are only
+getting one specific period of time, the year 2016.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
